@@ -1,0 +1,81 @@
+/* Reset index.css styles that are causing issues */
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  background-color: #1a1a1a;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  display: block; /* Changed from flex */
+  background-color: #1a1a1a;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #1a1a1a;
+}
+
+.app {
+  width: 100vw;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: #1a1a1a;
+  color: white;
+  overflow-x: hidden;
+}
+
+/* Update hero section to ensure full width */
+.hero-section {
+  padding: 8rem 4rem 4rem;
+  width: 100vw;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-content {
+  width: 100%;
+  max-width: 1440px; /* Add a max-width for very large screens */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4rem;
+  gap: 2rem;
+}
+
+/* Ensure the text area takes up proper space */
+.hero-text-box {
+  flex: 1;
+  min-width: 300px;
+  max-width: 600px;
+  background-color: #2a2a2a;
+  padding: 3rem;
+  border-radius: 2rem;
+}
+
+/* Ensure the logo area doesn't push content */
+.hero-logo {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-logo img {
+  max-width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: contain;
+}
