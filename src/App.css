@@ -153,6 +153,7 @@ body {
   justify-content: center;
   align-items: center;
   min-width: 600px;
+  transform: translateY(20px);
 }
 
 .hero-logo img {
@@ -160,6 +161,11 @@ body {
   width: auto;
   max-width: none;
   object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.hero-logo img:hover{
+  transform: scale(1.05);
 }
 
 /* Marquee Text */
@@ -181,8 +187,8 @@ body {
   white-space: nowrap;
   padding: 0 3px ;
   color: #888;
-  font-size: 1.3rem;
-  font-weight: 700;
+  font-size: 1.2rem;
+
 }
 
 .marquee-reverse {
@@ -324,10 +330,10 @@ body {
   aspect-ratio: 1;
 }
 
-.process-step.step-1 { background-color: rgb(176, 224, 230, 0.2); }
-.process-step.step-2 { background-color: rgb(176, 224, 230, 0.4); }
-.process-step.step-3 { background-color: rgb(176, 224, 230, 0.6); }
-.process-step.step-4 { background-color: rgb(176, 224, 230, 0.8); }
+.process-step.step-1 { background-color: #a5d5cad6; }
+.process-step.step-2 { background-color: #a5d5ca; }
+.process-step.step-3 { background-color: #87c2b4; }
+.process-step.step-4 { background-color: #78bcad; }
 
 .step-number {
   font-size: 1.5rem;
@@ -366,7 +372,7 @@ body {
   left: 2rem;
   width: 3rem;
   height: 3rem;
-  background-color: #1a1a1a;
+  background-color: #3b3b3be9;
   color: white;
   border: none;
   border-radius: 50%;
@@ -377,10 +383,13 @@ body {
   justify-content: center;
   transition: all 0.3s ease;
   z-index: 100;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .scroll-to-top:hover {
-  background-color: #2a2a2a;
+  background-color: #646cff;
   transform: translateY(-2px);
 }
 
@@ -538,7 +547,7 @@ body {
 
 .faq-section {
   padding: 4rem;
-  background-color: rgb(176, 224, 230, 0.2);
+  background-color: #A5D5CA;
   width: 100vw;
 }
 

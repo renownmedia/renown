@@ -1,0 +1,36 @@
+      <section className="reference-section" id="reference">
+          <h2>Portfolio</h2>
+          <p>Výsledky našich spoluprací:</p>
+          <div className="references-grid">
+            <div className="reference-wrapper">
+              <div className="reference-card"></div>
+              <div className="reference-info">
+                <h3>THERAPY</h3>
+                <p>Masážní studio v Přerově</p>
+              </div>
+            </div>
+            <div className="reference-wrapper">
+              <div className="reference-card"></div>
+              <div className="reference-info">
+                <h3>CASTELLANA TRATTORIA</h3>
+                <p>Rodinná italská restaurace v centru Brna</p>
+              </div>
+            </div>
+            <div className="reference-wrapper">
+              <div className="reference-card"></div>
+              <div className="reference-info">
+                <h3>THERAPY</h3>
+                <p>Masážní studio v Přerově</p>
+              </div>
+            </div>
+          </div>
+          <div className="reference-controls">
+            <button className="nav-arrow">←</button>
+            <div className="reference-dots">
+              {[1, 2, 3, 4, 5].map((_, index) => (
+                <div key={index} className={`reference-dot ${index === 0 ? 'active' : ''}`} />
+              ))}
+            </div>
+            <button className="nav-arrow">→</button>
+          </div>
+        </section>
