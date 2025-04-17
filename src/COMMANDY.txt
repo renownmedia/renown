@@ -1,0 +1,9 @@
+npm run dev     -     zaplé při developmentu, vidíš live server
+npm run build   -     Stránka ready na update, build to postav
+firebase serve  -     Rozjede postavenou stránku, check it
+firebase deploy -     !! Upload na stránku !!
+
+
+git add .       -     Přidání všech změněných souborů na commit ready
+třetí ikona od vrchu v levo - napsat commit message + commit button
+git push        -     Hodí commit online
