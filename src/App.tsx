@@ -1,9 +1,52 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './App.css';
+
+// Třída pro animované prvky, které se mají zobrazit při scrollování
+const ANIMATION_CLASS = 'animate-on-scroll';
 
 function App() {
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+  const animatedElementsRef = useRef<HTMLElement[]>([]);
+  
+  // Funkce pro inicializaci IntersectionObserver pro animace při scrollování
+  useEffect(() => {
+    // Najde všechny prvky s animačními třídami
+    const animatedElements = document.querySelectorAll<HTMLElement>(
+      '.fade-in, .slide-up, .slide-in, .scale-in'
+    );
+    
+    // Přidá třídu pro skrytí prvků před animací
+    animatedElements.forEach(el => {
+      el.classList.add(ANIMATION_CLASS);
+      animatedElementsRef.current.push(el);
+    });
+    
+    // Vytvoří IntersectionObserver pro sledování prvků
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Když je prvek viditelný, odstraní třídu pro skrytí a spustí animaci
+            entry.target.classList.remove(ANIMATION_CLASS);
+            // Přestane sledovat prvek po animaci
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 } // Spustí animaci, když je viditelných alespoň 10 % prvku
+    );
+    
+    // Začne sledovat všechny animované prvky
+    animatedElements.forEach(el => observer.observe(el));
+    
+    return () => {
+      // Ukončí sledování při unmount komponenty
+      if (animatedElementsRef.current.length > 0) {
+        animatedElementsRef.current.forEach(el => observer.unobserve(el));
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -100,7 +143,7 @@ function App() {
 
       <section className="hero-section">
         <div className="hero-content">
-          <div className="hero-text-box">
+          <div className="hero-text-box fade-in">
             <h1>Digitální marketing & content</h1>
             <p>Zvyšte povědomí o vaší značce, získejte nové zákazníky a budujte jejich loajalitu.</p>
             <div className="hero-buttons">
@@ -108,7 +151,7 @@ function App() {
               <button onClick={() => scrollToSection('sluzby')} className="secondary-btn">Služby</button>
             </div>
           </div>
-          <div className="hero-logo">
+          <div className="hero-logo scale-in">
             <img src="/images/logo-large.png" alt="Renown Media Logo" />
           </div>
         </div>
@@ -132,7 +175,7 @@ function App() {
           </div>
         </div>
 
-        <div className="team-statement">
+        <div className="team-statement slide-up">
           <h2>Jsme tým, který pomáhá firmám i jednotlivcům růst ve světě onlinu.</h2>
         </div>
       </section>
@@ -148,10 +191,10 @@ function App() {
         </button>
 
         <section className="services-section" id="sluzby">
-          <h2>Služby</h2>
+          <h2 className="slide-up">Služby</h2>
           <div className="services-grid">
             {services.map((service, index) => (
-              <div key={index} className="service-card">
+              <div key={index} className="service-card slide-up stagger-item">
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
                 <button className="zjistit-vice">
@@ -166,10 +209,10 @@ function App() {
         </section>
 
         <section className="process-section">
-          <h2>Proces spolupráce</h2>
+          <h2 className="slide-up">Proces spolupráce</h2>
           <div className="process-grid">
             {processSteps.map((step) => (
-              <div key={step.number} className={`process-step step-${step.number}`}>
+              <div key={step.number} className={`process-step step-${step.number} scale-in stagger-item`}>
                 <span className="step-number">{step.number.padStart(2, '0')}</span>
                 <span className="step-title">{step.title}</span>
               </div>
@@ -180,12 +223,12 @@ function App() {
   
 
         <section className="about-section" id="o-nas">
-          <h2>O nás</h2>
+          <h2 className="slide-up">O nás</h2>
           <div className="about-content">
-            <div className="about-logo">
+            <div className="about-logo scale-in">
               <img src="/images/logo-large.png" alt="Renown Media Logo" />
             </div>
-            <div className="about-text">
+            <div className="about-text slide-in">
               <h3>Renown Media</h3>
               <p>
                 Jsme mladý tým sestavený z generace Z, který baví oblast digitálního marketingu a v online světě jsme jako doma. 
@@ -197,12 +240,12 @@ function App() {
         </section>
 
         <section className="faq-section">
-          <h2>Časté dotazy (FAQ)</h2>
+          <h2 className="slide-up">Časté dotazy (FAQ)</h2>
           <div className="faq-container">
             {faqItems.map((item, index) => (
               <div 
               key={index} 
-              className="faq-item"
+              className="faq-item slide-up stagger-item"
               onClick={() => toggleFaq(index)}
             >
               <div className="faq-question">
@@ -219,29 +262,29 @@ function App() {
           </div>
         </section>
         <section className="contact-section" id="kontakt">
-  <h2>Kontaktujte nás</h2>
+  <h2 className="slide-up">Kontaktujte nás</h2>
   
-  <div className="contact-email">
+  <div className="contact-email slide-up">
     <h3>EMAIL</h3>
     <a href="mailto:renownmediateam@gmail.com" className="email-button">
       📧 renownmediateam@gmail.com
     </a>
   </div>
 
-  <div className="social-section">
+  <div className="social-section slide-up">
     <h3>SOCIÁLNÍ SÍTĚ</h3>
     <div className="social-links">
-      <a href="#" className="social-link" aria-label="Facebook">
+      <a href="#" className="social-link scale-in stagger-item" aria-label="Facebook">
         f
       </a>
-      <a href="#" className="social-link" aria-label="Instagram">
+      <a href="#" className="social-link scale-in stagger-item" aria-label="Instagram">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <rect x="2" y="2" width="20" height="20" rx="5" />
           <circle cx="12" cy="12" r="4" />
           <circle cx="17.5" cy="6.5" r="1.5" />
         </svg>
       </a>
-      <a href="#" className="social-link" aria-label="LinkedIn">
+      <a href="#" className="social-link scale-in stagger-item" aria-label="LinkedIn">
         in
       </a>
     </div>
